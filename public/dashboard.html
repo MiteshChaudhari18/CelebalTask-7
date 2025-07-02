@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>Celebal Technology Dashboard</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body>
+  <div class="dashboard">
+    <h1 id="title">Celebal Employee Details</h1>
+    <h3 id="welcome">Welcome</h3>
+
+    <div id="adminSection" class="admin-section" style="display: none;">
+      <h2>Employee Management (Admin Only)</h2>
+
+      <form id="addForm">
+        <input type="text" id="empName" placeholder="Employee Name" required />
+        <input type="text" id="empPosition" placeholder="Position" required />
+        <button type="submit" id="submitBtn">Add Employee</button>
+      </form>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Position</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody id="empTable"></tbody>
+      </table>
+    </div>
+
+    <div class="logout">
+      <button onclick="logout()">Logout</button>
+    </div>
+  </div>
+
+  <script>
+    let editId = null;
+
+    fetch('/api/user')
+      .then(res => {
+        if (!res.ok) throw new Error('Unauthorized');
+        return res.json();
+      })
+      .then(user => {
+        document.getElementById('welcome').innerText = `Welcome, ${user.username} (${user.role})`;
+        if (user.role === 'admin') {
+          document.getElementById('adminSection').style.display = 'block';
+          loadEmployees();
+        }
+      })
+      .catch(() => window.location.href = "/");
+
+    function loadEmployees() {
+      fetch('/api/employees')
+        .then(res => res.json())
+        .then(data => {
+          const tbody = document.getElementById('empTable');
+          tbody.innerHTML = '';
+          data.forEach(emp => {
+            const tr = document.createElement('tr');
+            tr.innerHTML = `
+              <td>${emp.name}</td>
+              <td>${emp.position}</td>
+              <td>
+                <button onclick="editEmp(${emp.id}, '${emp.name}', '${emp.position}')">Edit</button>
+                <button onclick="deleteEmp(${emp.id})">Delete</button>
+              </td>
+            `;
+            tbody.appendChild(tr);
+          });
+        });
+    }
+
+    document.getElementById('addForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const name = document.getElementById('empName').value;
+      const position = document.getElementById('empPosition').value;
+
+      if (editId) {
+        await fetch(`/api/employees/${editId}`, {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ name, position })
+        });
+        editId = null;
+        document.getElementById('submitBtn').innerText = 'Add Employee';
+      } else {
+        await fetch('/api/employees', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+          body: `name=${encodeURIComponent(name)}&position=${encodeURIComponent(position)}`
+        });
+      }
+
+      loadEmployees();
+      document.getElementById('addForm').reset();
+    });
+
+    function editEmp(id, name, position) {
+      document.getElementById('empName').value = name;
+      document.getElementById('empPosition').value = position;
+      editId = id;
+      document.getElementById('submitBtn').innerText = 'Update Employee';
+    }
+
+    function deleteEmp(id) {
+      fetch(`/api/employees/${id}`, { method: 'DELETE' }).then(loadEmployees);
+    }
+
+    function logout() {
+      document.cookie = "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+      window.location.href = "/";
+    }
+  </script>
+</body>
+
+</html>

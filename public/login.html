@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>Celebal Technology Login</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body>
+  <div class="container">
+    <!-- Left Panel -->
+    <div class="left-panel">
+      <img src="celebal.jpeg" alt="Celebal Technology" class="logo" />
+      <h1 style="color: #fff; margin-top: 20px;">Celebal Technology</h1>
+    </div>
+
+    <!-- Right Panel -->
+    <div class="right-panel">
+      <div class="form-container">
+        <h1>Login</h1>
+        <h5>login or create account</h5>
+        <form id="loginForm">
+          <label>Username</label>
+          <input type="text" name="username" required />
+          <label>Password</label>
+          <input type="password" name="password" required />
+          <button type="submit" class="btn">Login</button>
+        </form>
+
+        <button id="showRegister" class="btn-outline">Create Account</button>
+
+        <form id="registerForm" class="register-form">
+          <h1>Register</h1>
+          <label>Username</label>
+          <input type="text" name="username" required />
+          <label>Password</label>
+          <input type="password" name="password" required />
+          <label>Role</label>
+          <select name="role" required>
+            <option value="user">User</option>
+            <option value="admin">Admin</option>
+          </select>
+          <button type="submit" class="btn">Register</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const showRegisterBtn = document.getElementById('showRegister');
+    const registerForm = document.getElementById('registerForm');
+
+    showRegisterBtn.addEventListener('click', () => {
+      registerForm.classList.toggle('active');
+      registerForm.scrollIntoView({ behavior: 'smooth' });
+    });
+
+    document.getElementById('loginForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const form = e.target;
+      const data = new URLSearchParams(new FormData(form));
+      const res = await fetch('/login', { method: 'POST', body: data });
+      if (res.redirected) window.location.href = res.url;
+      else alert(await res.text());
+    });
+
+    registerForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const form = e.target;
+      const data = new URLSearchParams(new FormData(form));
+      const res = await fetch('/register', { method: 'POST', body: data });
+      if (res.ok) {
+        alert('Registration successful. You can now login.');
+        registerForm.classList.remove('active');
+      } else {
+        alert(await res.text());
+      }
+    });
+  </script>
+</body>
+
+</html>

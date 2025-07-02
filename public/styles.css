@@ -1,0 +1,253 @@
+/* RESET & BASE */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Segoe UI', Tahoma, sans-serif;
+}
+
+body {
+  background: #f0f2f5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+}
+
+/* CONTAINER (LOGIN/REGISTER LAYOUT) */
+.container {
+  display: flex;
+  width: 1000px;
+  max-width: 95%;
+  min-height: 600px;
+  background: #fff;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 0 20px rgba(0,0,0,0.1);
+}
+
+.left-panel {
+  flex: 1;
+  background: #004080;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.left-panel .logo {
+  max-width: 180px;
+  margin-bottom: 20px;
+}
+
+.right-panel {
+  flex: 1;
+  background: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px;
+}
+
+.form-container {
+  width: 100%;
+  max-width: 350px;
+}
+
+.form-container h1 {
+  text-align: center;
+  color: #004080;
+  margin-bottom: 20px;
+}
+
+.form-container h5 {
+  text-align: center;
+  color: #004080;
+  margin-bottom: 20px;
+}
+
+.form-container label {
+  display: block;
+  margin-top: 15px;
+  font-weight: 600;
+  color: #333;
+}
+
+.form-container input,
+.form-container select {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  margin-top: 5px;
+}
+
+.btn {
+  width: 100%;
+  padding: 12px;
+  background: #004080;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  margin-top: 20px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.btn:hover {
+  background: #002d5a;
+}
+
+.btn-outline {
+  width: 100%;
+  padding: 12px;
+  background: transparent;
+  color: #004080;
+  border: 2px solid #004080;
+  border-radius: 6px;
+  margin-top: 15px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.btn-outline:hover {
+  background: #004080;
+  color: #fff;
+}
+
+.register-form {
+  display: none;
+  margin-top: 30px;
+}
+
+.register-form.active {
+  display: block;
+}
+
+.footer {
+  text-align: center;
+  margin-top: 30px;
+  font-size: 12px;
+  color: #888;
+}
+
+/* DASHBOARD */
+.dashboard {
+  max-width: 1000px;
+  width: 90%;
+  background: #fff;
+  padding: 40px;
+  border-radius: 12px;
+  box-shadow: 0 0 20px rgba(0,0,0,0.1);
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.dashboard h1 {
+  color: #004080;
+  font-size: 28px;
+  margin-bottom: 20px;
+}
+
+.admin-section {
+  margin-top: 40px;
+}
+
+.admin-section h2 {
+  font-size: 22px;
+  margin-bottom: 15px;
+  color: #004080;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+table th, table td {
+  border: 1px solid #ddd;
+  padding: 10px 12px;
+  text-align: left;
+}
+
+table th {
+  background: #004080;
+  color: #fff;
+}
+
+table tr:nth-child(even) {
+  background: #f9f9f9;
+}
+
+table td button {
+  background: #ff4d4d;
+  color: #fff;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+table td button:hover {
+  background: #cc0000;
+}
+
+#addForm {
+  margin-top: 20px;
+}
+
+#addForm input {
+  padding: 10px;
+  margin-right: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}
+
+#addForm button {
+  background: #004080;
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+#addForm button:hover {
+  background: #002d5a;
+}
+
+.logout {
+  margin-top: 30px;
+}
+
+.dashboard h3 {
+  color: #004080;
+  font-size: 20px;
+  margin-bottom: 20px;
+}
+
+.dashboard h1 {
+  color: brown;
+  font-size: 30px;
+  text-align: center;  
+  margin-bottom: 20px; 
+  margin-top: 0;       
+}
+
+
+.logout button {
+  background: #888;
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.logout button:hover {
+  background: #555;
+}

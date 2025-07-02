@@ -1,0 +1,11 @@
+# Ignore node_modules (all installed packages)
+node_modules/
+
+# Ignore environment variable files (if you ever use .env for secrets)
+.env
+
+# Ignore log files
+*.log
+
+# Optional: Mac system files (if you’re on macOS)
+.DS_Store
